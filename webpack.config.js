@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -44,5 +45,10 @@ module.exports = {
       template: './public/links.html',
       chunks: ['links'],
     }),
+    new CopyPlugin({
+    patterns: [
+      { from: path.resolve(__dirname, '_redirects'), to: '' },
+    ],
+  }),
   ],
 };
