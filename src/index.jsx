@@ -47,7 +47,7 @@ function App() {
 
         <div>
             <form className="login-form" onSubmit={handleLogin}>
-                <h1 className="text-x1 font-bold text-white-600">Login con Tailwind</h1>
+                <h1 className="text-x1 font-bold text-white-600">Login con Tailwind !</h1>
                 {error && <div className="error">{error}</div>}
 
                 <div className="form-group flex flex-col items-center mt-6">
