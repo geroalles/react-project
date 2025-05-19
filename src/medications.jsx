@@ -37,7 +37,7 @@ function Medications() {
                     'ngrok-skip-browser-warning': 'true'
                 },
                 credentials: 'include',
-                body: JSON.stringify({ dni, medication, amount })
+                body: JSON.stringify({ dni, medication, amount, medication2, amount2, medication3, amount3})
             });
 
             const data = await response.json();
