@@ -8,6 +8,7 @@ function Links() {
             
             <MedicationButton to="/medications">Solicitudes de Medicamentos</MedicationButton>
             <AlmuerzosButton to="https://tailwindcss.com/docs/animation">Almuerzos</AlmuerzosButton>
+            <ExitButton to="/">Salir</ExitButton>
         </div>
 
     )
@@ -49,6 +50,25 @@ function AlmuerzosButton({ type = 'button', children, to }) {
         </button>
     );
 }
+
+function ExitButton({ type = 'button', children, to }) {
+    const handleClick = () => {
+        localStorage.removeItem('authToken');
+        if (to) {
+            window.open(to, 'noopener,noreferrer'); //abre eñ link en otra pestaña de forma segura
+        }
+    };
+
+    return (
+        <button
+            type={type}
+            onClick={handleClick}
+            className="bg-blue-500 transition delay-700 duration-700 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500">
+            {children}
+        </button>
+    );
+}
+
 
 export default Links;
 

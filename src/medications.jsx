@@ -9,6 +9,13 @@ function Medications() {
     const [dni, setDni] = useState('')
     const [medication, setMedication] = useState('')
     const [amount, setAmount] = useState('')
+
+    const [medication2, setMedication2] = useState('')
+    const [amount2, setAmount2] = useState('')
+    
+    const [medication3, setMedication3] = useState('')
+    const [amount3, setAmount3] = useState('')
+
     const [error, setError] = useState(null)
     const navigate = useNavigate();
 
@@ -53,7 +60,7 @@ function Medications() {
     //Vista que voy a mostrar en el index.html
     return (
         <div className="overflow-x-hidden">
-            <form className="w-full max-w-md bg-white" onSubmit={handleMedications}>
+            <form className="w-full max-w-md" onSubmit={handleMedications}>
                 <h1 className="text-xl font-bold text-center text-white-600 mb-4">Solicitud de Medicamentos</h1>
                 {error && <div className="error">{error}</div>}
 
@@ -69,7 +76,7 @@ function Medications() {
                     <div className="flex justify-center gap-x-3">
 
                         <div className="flex flex-col items-center">
-                            <label htmlFor="input_medication" className="font-bold">Medicamento:</label>
+                            <label htmlFor="input_medication" className="font-bold">Medicamento 1:</label>
                             <InputMedication value={medication} onChange={e => setMedication(e.target.value)} />
                         </div>
 
@@ -77,6 +84,33 @@ function Medications() {
                             <label htmlFor="amount" className="font-bold">Cantidad:</label>
                             <InputAmount value={amount} onChange={e => setAmount(e.target.value)} />
                         </div>
+                       
+                    </div>
+                    <div className="flex justify-center gap-x-3">
+
+                        <div className="flex flex-col items-center">
+                            <label htmlFor="input_medication2" className="font-bold">Medicamento 2:</label>
+                            <InputMedication2 value={medication2} onChange={e => setMedication2(e.target.value)} />
+                        </div>
+
+                        <div className="flex flex-col items-center">
+                            <label htmlFor="amount2" className="font-bold">Cantidad:</label>
+                            <InputAmount2 value={amount2} onChange={e => setAmount2(e.target.value)} />
+                        </div>
+                       
+                    </div>
+                    <div className="flex justify-center gap-x-3">
+
+                        <div className="flex flex-col items-center">
+                            <label htmlFor="input_medication3" className="font-bold">Medicamento 3:</label>
+                            <InputMedication3 value={medication3} onChange={e => setMedication3(e.target.value)} />
+                        </div>
+
+                        <div className="flex flex-col items-center">
+                            <label htmlFor="amount3" className="font-bold">Cantidad:</label>
+                            <InputAmount3 value={amount3} onChange={e => setAmount3(e.target.value)} />
+                        </div>
+                       
                     </div>
                 </div>
 
@@ -107,7 +141,7 @@ function InputDni({ value, onChange }) {
         />
     )
 }
-
+/*Medication 1*/
 function InputMedication({ value, onChange }) {
     return (
         <input
@@ -130,6 +164,61 @@ function InputAmount({ value, onChange }) {
             value={value}
             onChange={onChange}
             required
+            min={1}
+            className="w-20 px-3 py-2 rounded-md border border-black focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+    )
+}
+
+/*Medicacion 2*/
+function InputMedication2({ value, onChange }) {
+    return (
+        <input
+            type="text"
+            id="medication2"
+            name="medication2"
+            value={value}
+            onChange={onChange}
+            className="w-70 px-3 py-2 rounded-md border border-black focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+    )
+}
+function InputAmount2({ value, onChange }) {
+    return (
+        <input
+            type="number"
+            id="amount2"
+            name="amount2"
+            value={value}
+            onChange={onChange}
+            min={1}
+            className="w-20 px-3 py-2 rounded-md border border-black focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+    )
+}
+
+/*Medication 3*/
+function InputMedication3({ value, onChange }) {
+    return (
+        <input
+            type="text"
+            id="medication3"
+            name="medication3"
+            value={value}
+            onChange={onChange}
+            className="w-70 px-3 py-2 rounded-md border border-black focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+    )
+}
+function InputAmount3({ value, onChange }) {
+    return (
+        <input
+            type="number"
+            id="amount3"
+            name="amount3"
+            value={value}
+            onChange={onChange}
+            min={1}
             className="w-20 px-3 py-2 rounded-md border border-black focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
     )
@@ -160,6 +249,7 @@ function BackButton() {
         </button>
     );
 }
+
 
 export default Medications;
 
