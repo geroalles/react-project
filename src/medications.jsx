@@ -52,25 +52,35 @@ function Medications() {
 
     //Vista que voy a mostrar en el index.html
     return (
-
-        <div>
-            <form className="login-form" onSubmit={handleMedications}>
-                <h1 className="text-x1 font-bold text-white-600">Solicitud de Medicamentos</h1>
+        <div className="overflow-x-hidden">
+            <form className="w-full max-w-md bg-white" onSubmit={handleMedications}>
+                <h1 className="text-xl font-bold text-center text-white-600 mb-4">Solicitud de Medicamentos</h1>
                 {error && <div className="error">{error}</div>}
 
-                <div className="form-group flex flex-col items-center mt-6">
+                <div className="form-group flex flex-col items-center mt-6 gap-4">
 
-                    <label htmlFor="dni" id="input_dni" className="font-bold">Dni: </label>
-                    <InputDni value={dni} onChange={e => setDni(e.target.value)} />
 
-                    <label htmlFor="medication" id="input_medication" className="font-bold">Medicamento: </label>
-                    <InputMedication value={medication} onChange={e => setMedication(e.target.value)} />
+                    <div className="flex flex-col items-center">
+                        <label htmlFor="dni" className="font-bold mb-1">DNI:</label>
+                        <InputDni value={dni} onChange={e => setDni(e.target.value)} />
+                    </div>
 
-                    <label htmlFor="amount" className="font-bold">Cantidad</label>
-                    <InputAmount value={amount} onChange={e => setAmount(e.target.value)} />
+
+                    <div className="flex justify-center gap-x-3">
+
+                        <div className="flex flex-col items-center">
+                            <label htmlFor="input_medication" className="font-bold">Medicamento:</label>
+                            <InputMedication value={medication} onChange={e => setMedication(e.target.value)} />
+                        </div>
+
+                        <div className="flex flex-col items-center">
+                            <label htmlFor="amount" className="font-bold">Cantidad:</label>
+                            <InputAmount value={amount} onChange={e => setAmount(e.target.value)} />
+                        </div>
+                    </div>
                 </div>
 
-                <div className="flex justify-center">
+                <div className="flex justify-center gap-2">
                     <MyButton type="submit">Solicitar</MyButton>
 
                     <BackButton />
@@ -120,14 +130,18 @@ function InputAmount({ value, onChange }) {
             value={value}
             onChange={onChange}
             required
-            className="w-70 px-3 py-2 rounded-md border border-black focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-20 px-3 py-2 rounded-md border border-black focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
     )
 }
 
 function MyButton({ type = 'button', children }) {
     return (
-        <button type={type} className="bg-blue-500 transition delay-700 duration-700 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500">
+        <button
+            className="w-full max-w-[120px] sm:max-w-[160px] px-2 py-2 bg-blue-500 rounded text-white text-sm transition delay-700 duration-700 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500"
+        >
+
+
             {children}
         </button>
     )
@@ -140,7 +154,7 @@ function BackButton() {
     return (
         <button
             onClick={() => navigate('/links')}
-            className="bg-blue-500 px-4 py-2 rounded text-white transition delay-700 duration-700 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500"
+            className="w-full max-w-[120px] sm:max-w-[160px] px-2 py-2 bg-blue-500 rounded text-white text-sm transition delay-700 duration-700 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500"
         >
             Volver
         </button>
