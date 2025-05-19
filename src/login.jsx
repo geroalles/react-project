@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import './styles/App.css';
 
 function Login() {
+    const API_BASE = process.env.REACT_APP_API_BASE_URL;
+
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState(null)
@@ -15,7 +17,7 @@ function Login() {
         e.preventDefault();
 
         try {
-            const response = await fetch(`https://8fce-181-30-186-146.ngrok-free.app/api/login`, {
+            const response = await fetch(`${API_BASE}/api/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

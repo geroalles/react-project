@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import './styles/App.css';
 
 function Medications() {
+    const API_BASE = process.env.REACT_APP_API_BASE_URL;
+
     const [dni, setDni] = useState('')
     const [medication, setMedication] = useState('')
     const [amount, setAmount] = useState('')
@@ -28,7 +30,7 @@ function Medications() {
                 return;
             }
 
-            const response = await fetch(`https://8fce-181-30-186-146.ngrok-free.app/api/medications`, {
+            const response = await fetch(`${API_BASE}/api/medications`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
