@@ -4,13 +4,10 @@ const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   mode: 'development',
-  entry: {
-    index: './src/index.jsx',   // ← Entrada principal
-    links: './src/links.jsx'    // ← Entrada para links.html
-  },
+  entry: './src/index.jsx',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].bundle.js', // ← Genera index.bundle.js y links.bundle.js
+    filename: 'bundle.js',
     clean: true,
   },
   resolve: {
@@ -20,6 +17,7 @@ module.exports = {
     static: './dist',
     port: 3000,
     open: true,
+    historyApiFallback: true,
   },
   module: {
     rules: [
@@ -36,19 +34,12 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      filename: 'index.html',
       template: './public/index.html',
-      chunks: ['index'],
-    }),
-    new HtmlWebpackPlugin({
-      filename: 'links.html',
-      template: './public/links.html',
-      chunks: ['links'],
     }),
     new CopyPlugin({
-    patterns: [
-      { from: path.resolve(__dirname, '_redirects'), to: '' },
-    ],
-  }),
+      patterns: [
+        { from: path.resolve(__dirname, '_redirects'), to: '' },
+      ],
+    }),
   ],
 };

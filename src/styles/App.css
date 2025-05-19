@@ -6,6 +6,9 @@ html, body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+  display: flex;
+  justify-content: center;  
+  align-items: center;  
 }
 
 button {
@@ -51,11 +54,11 @@ input {
 
 #links-container {
   display: flex;
-  flex-direction: column;   /* esto apila los hijos en columna */
+  flex-direction: column; 
   justify-content: center;  
   align-items: center;      
   height: 100vh;           
-  gap: 1rem;                /* opcional: espacio entre ellos */
+  gap: 1rem;              
 }
 
 #root {

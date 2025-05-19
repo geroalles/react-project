@@ -1,12 +1,12 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
 import './styles/App.css';
-function LinksPage() {
+function Links() {
     return (
         <div id="links-container">
             <h1>Links</h1>
             
-            <MedicationButton to="https://tailwindcss.com/docs/animation">Solicitudes de Medicamentos</MedicationButton>
+            <MedicationButton to="/medications">Solicitudes de Medicamentos</MedicationButton>
             <AlmuerzosButton to="https://tailwindcss.com/docs/animation">Almuerzos</AlmuerzosButton>
         </div>
 
@@ -50,8 +50,6 @@ function AlmuerzosButton({ type = 'button', children, to }) {
     );
 }
 
+export default Links;
 
 
-
-const root = createRoot(document.getElementById('links'))
-root.render(<LinksPage />)
