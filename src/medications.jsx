@@ -153,7 +153,7 @@ function Medications() {
                     </div>
 
 
-                    <div className="flex justify-center gap-x-3 -mt-2">
+                    <div className="flex justify-center gap-x-0.5 -mt-2">
 
                         <div className="flex flex-col items-center">
                             <label htmlFor="input_medication" className="font-bold">Medicamento:</label>
@@ -168,9 +168,10 @@ function Medications() {
                             type="button"
                             onClick={() => setShowMed2(true)}
                             disabled={showMed2}
-                            className={`self-start mt-12 inline-flex items-center justify-center text-xs text-red-500 hover:text-red-700 p-0 m-0 h-5 w-5
-    ${showMed2 ? 'opacity-50 cursor-not-allowed hover:text-red-500' : 'hover:text-red-700'}
-  `}
+                            className={`self-start mt-12 inline-flex items-center justify-center text-xs text-green-500 hover:text-green-700 p-0 m-0 h-5 w-5
+  ${showMed2 ? 'opacity-50 cursor-not-allowed hover:text-green-500' : 'hover:text-green-700'}
+`}
+
                         >
                             +
                         </button>
@@ -181,7 +182,7 @@ function Medications() {
                     {showMed2 && (
                         <>
                             {showMed2 && (
-                                <div className="flex justify-center gap-x-3 -mt-8">
+                                <div className="flex justify-center gap-x-0.5 -mt-8">
                                     {/* Campo Medicamento 2 */}
                                     <div className="flex flex-col items-center">
                                         <InputMedication2
@@ -202,7 +203,7 @@ function Medications() {
                                         <button
                                             type="button"
                                             onClick={closeMed2}
-                                            disabled={showMed3} 
+                                            disabled={showMed3}
                                             className={`inline-flex items-center h-5 w-5 justify-center text-xs leading-none text-red-500 p-0 m-0
     ${showMed3 ? 'opacity-50 cursor-not-allowed hover:text-red-500' : 'hover:text-red-700'}
   `}
@@ -235,7 +236,7 @@ function Medications() {
 
                     {showMed3 && (
                         <>
-                            <div className="flex justify-center gap-x-3 -mt-8">
+                            <div className="flex justify-center gap-x-0.5 -mt-8">
 
                                 <div className="flex flex-col items-center">
 
@@ -298,7 +299,7 @@ function InputMedication({ value, onChange }) {
             value={value}
             onChange={onChange}
             required
-            className="w-70 px-3 py-2 rounded-md border border-black focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-60 px-3 py-2 rounded-md border border-black focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
     )
 }
@@ -326,7 +327,7 @@ function InputMedication2({ value, onChange }) {
             name="medication2"
             value={value}
             onChange={onChange}
-            className="w-70 px-3 py-2 rounded-md border border-black focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-60 px-3 py-2 rounded-md border border-black focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
     )
 }
@@ -353,7 +354,7 @@ function InputMedication3({ value, onChange }) {
             name="medication3"
             value={value}
             onChange={onChange}
-            className="w-70 px-3 py-2 rounded-md border border-black focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-60 px-3 py-2 rounded-md border border-black focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
     )
 }
