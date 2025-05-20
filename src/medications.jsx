@@ -1,5 +1,5 @@
 import { createRoot } from 'react-dom/client'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -14,12 +14,66 @@ function Medications() {
 
     const [medication2, setMedication2] = useState('')
     const [amount2, setAmount2] = useState('')
-    
+
     const [medication3, setMedication3] = useState('')
     const [amount3, setAmount3] = useState('')
 
     const [error, setError] = useState(null)
     const navigate = useNavigate();
+
+    const [dniValid, setDniValid] = useState(false);
+    const [dniError, setDniError] = useState(false);
+    const [personName, setPersonName] = useState('');
+
+    useEffect(() => {
+        setDniError(null);
+        setDniValid(false);
+        setPersonName('');
+
+        if (!dni) return;               
+        if (dni.length < 6) {           
+            setDniError('El DNI debe tener al menos 6 dígitos.');
+            return;
+        }
+
+        const timer = setTimeout(async () => {
+            try {
+                const res = await fetch(`${API_BASE}/api/buscarPersona`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'ngrok-skip-browser-warning': 'true'
+                    },
+                    body: JSON.stringify({ dni })
+                });
+
+
+                const data = await res.json();
+                if (res.ok) {
+
+                    setPersonName(`${data.nombre_p} ${data.apellido}`);
+                    setDniValid(true);
+                    setDniError(null);
+
+                } else if (res.status === 404) {
+                    setDniValid(false);
+                    setDniError('Persona no encontrada');
+                } else {
+                    // otro error de servidor
+                    setDniValid(false);
+                    setDniError('Error validando DNI');
+                }
+            } catch (e) {
+                setDniValid(false);
+                setDniError('No se pudo contactar al servidor');
+            }
+        }, 500); // 500 ms de debounce
+
+        return () => clearTimeout(timer);
+    }, [dni, API_BASE]);
+
+
 
     const handleMedications = async (e) => {
         e.preventDefault();
@@ -37,7 +91,7 @@ function Medications() {
                     'ngrok-skip-browser-warning': 'true'
                 },
                 credentials: 'include',
-                body: JSON.stringify({ dni, medication, amount, medication2, amount2, medication3, amount3})
+                body: JSON.stringify({ dni, medication, amount, medication2, amount2, medication3, amount3 })
             });
 
             const data = await response.json();
@@ -72,6 +126,14 @@ function Medications() {
                     <div className="flex flex-col items-center">
                         <label htmlFor="dni" className="font-bold mb-1">DNI:</label>
                         <InputDni value={dni} onChange={e => setDni(e.target.value)} />
+                        {dniError && (
+                            <p className="text-red-500 text-sm mt-1">{dniError}</p>
+                        )}
+                        {dniValid && personName && (
+                            <p className="text-green-600 text-sm mt-1">
+                                Persona encontrada: <strong>{personName}</strong>
+                            </p>
+                        )}
                     </div>
 
 
@@ -86,7 +148,7 @@ function Medications() {
                             <label htmlFor="amount" className="font-bold">Cantidad:</label>
                             <InputAmount value={amount} onChange={e => setAmount(e.target.value)} />
                         </div>
-                       
+
                     </div>
                     <div className="flex justify-center gap-x-3">
 
@@ -99,7 +161,7 @@ function Medications() {
                             <label htmlFor="amount2" className="font-bold">Cantidad:</label>
                             <InputAmount2 value={amount2} onChange={e => setAmount2(e.target.value)} />
                         </div>
-                       
+
                     </div>
                     <div className="flex justify-center gap-x-3">
 
@@ -112,7 +174,7 @@ function Medications() {
                             <label htmlFor="amount3" className="font-bold">Cantidad:</label>
                             <InputAmount3 value={amount3} onChange={e => setAmount3(e.target.value)} />
                         </div>
-                       
+
                     </div>
                 </div>
 
