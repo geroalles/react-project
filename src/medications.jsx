@@ -280,7 +280,7 @@ function Medications() {
                     </div>
 
 
-                    <div className="flex justify-center gap-2">
+                    <div className="flex justify-center gap-2 my-5">
                         <MyButton type="submit">Solicitar</MyButton>
 
                         <BackButton />
@@ -304,7 +304,7 @@ function InputDni({ value, onChange }) {
             value={value}
             onChange={onChange}
             required
-            className="w-70 px-3 py-2 rounded-md border border-black focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-80 px-3 py-2 rounded-md border border-black focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
     )
 }
@@ -318,7 +318,7 @@ function InputMedication({ value, onChange }) {
             value={value}
             onChange={onChange}
             required
-            className="w-60 px-3 py-2 rounded-md border border-black focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-50 px-3 py-2 rounded-md border border-black focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
     )
 }
@@ -346,7 +346,7 @@ function InputMedication2({ value, onChange }) {
             name="medication2"
             value={value}
             onChange={onChange}
-            className="w-60 px-3 py-2 rounded-md border border-black focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-50 px-3 py-2 rounded-md border border-black focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
     )
 }
@@ -373,7 +373,7 @@ function InputMedication3({ value, onChange }) {
             name="medication3"
             value={value}
             onChange={onChange}
-            className="w-60 px-3 py-2 rounded-md border border-black focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-50 px-3 py-2 rounded-md border border-black focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
     )
 }

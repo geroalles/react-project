@@ -49,14 +49,7 @@ input {
   gap: 1rem;              
 }
 
-#root {
-  display: flex;
-  justify-content: center; 
-  align-items: center;     
-  height: 100vh;           
-}
-
-/* Chrome, Safari, Edge, Opera */
+/*Saco las flechitas de los inputs de tipo number*/
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
