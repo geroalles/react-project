@@ -25,13 +25,16 @@ function Medications() {
     const [dniError, setDniError] = useState(false);
     const [personName, setPersonName] = useState('');
 
-    useEffect(() => {
-        setDniError(null);
+    const [showMed2, setShowMed2] = useState(false);
+    const [showMed3, setShowMed3] = useState(false);
+
+    useEffect(() => {  //useEffect: hook que se ejecuta cada vez que cambian cualquiera de las variables del array final ([dni, API_BASE]).
+        setDniError(null); //limpiamos las variables 
         setDniValid(false);
         setPersonName('');
 
-        if (!dni) return;               
-        if (dni.length < 6) {           
+        if (!dni) return;    //si dni es vacio, sale del flujo            
+        if (dni.length < 6) {
             setDniError('El DNI debe tener al menos 6 dígitos.');
             return;
         }
@@ -68,7 +71,7 @@ function Medications() {
                 setDniValid(false);
                 setDniError('No se pudo contactar al servidor');
             }
-        }, 500); // 500 ms de debounce
+        }, 500); // espera 500ms antes de lanzar la validacion
 
         return () => clearTimeout(timer);
     }, [dni, API_BASE]);
@@ -112,7 +115,20 @@ function Medications() {
     };
 
 
-
+    const closeMed2 = () => {
+        setShowMed2(false);
+        setMedication2('');
+        setAmount2('');
+        // Si cierras Med2, también cerramos Med3 por dependencia
+        setShowMed3(false);
+        setMedication3('');
+        setAmount3('');
+    };
+    const closeMed3 = () => {
+        setShowMed3(false);
+        setMedication3('');
+        setAmount3('');
+    };
     //Vista que voy a mostrar en el index.html
     return (
         <div className="overflow-x-hidden">
@@ -150,33 +166,77 @@ function Medications() {
                         </div>
 
                     </div>
-                    <div className="flex justify-center gap-x-3">
+                    {!showMed2 && (
+                        <button
+                            type="button"
+                            onClick={() => setShowMed2(true)}
+                            className="mb-4 text-blue-500"
+                        >
+                            + Agregar otro medicamento
+                        </button>
+                    )}
+                    {showMed2 && (
+                        <>
+                            <div className="flex justify-center gap-x-3">
 
-                        <div className="flex flex-col items-center">
-                            <label htmlFor="input_medication2" className="font-bold">Medicamento 2:</label>
-                            <InputMedication2 value={medication2} onChange={e => setMedication2(e.target.value)} />
-                        </div>
+                                <div className="flex flex-col items-center">
+                                    <label htmlFor="input_medication2" className="font-bold">Medicamento 2:</label>
+                                    <InputMedication2 value={medication2} onChange={e => setMedication2(e.target.value)} />
+                                </div>
 
-                        <div className="flex flex-col items-center">
-                            <label htmlFor="amount2" className="font-bold">Cantidad:</label>
-                            <InputAmount2 value={amount2} onChange={e => setAmount2(e.target.value)} />
-                        </div>
+                                <div className="flex flex-col items-center">
+                                    <label htmlFor="amount2" className="font-bold">Cantidad:</label>
+                                    <InputAmount2 value={amount2} onChange={e => setAmount2(e.target.value)} />
+                                </div>
 
-                    </div>
-                    <div className="flex justify-center gap-x-3">
+                            </div>
+                            {!showMed3 && (
+                            <button
+                                type="button"
+                                onClick={closeMed2}
+                                className="text-xs leading-none text-red-500 hover:text-red-700"
+                            >
+                               - Eliminar Medicamento 2
+                            </button>
+                            )}
+                        </>
+                    )}
 
-                        <div className="flex flex-col items-center">
-                            <label htmlFor="input_medication3" className="font-bold">Medicamento 3:</label>
-                            <InputMedication3 value={medication3} onChange={e => setMedication3(e.target.value)} />
-                        </div>
+                    {showMed2 && !showMed3 && (
+                        <button
+                            type="button"
+                            onClick={() => setShowMed3(true)}
+                            className="mb-4 text-blue-500"
+                        >
+                            + Agregar otro medicamento
+                        </button>
+                    )}
+                    {showMed3 && (
+                        <>
+                            <div className="flex justify-center gap-x-3">
 
-                        <div className="flex flex-col items-center">
-                            <label htmlFor="amount3" className="font-bold">Cantidad:</label>
-                            <InputAmount3 value={amount3} onChange={e => setAmount3(e.target.value)} />
-                        </div>
+                                <div className="flex flex-col items-center">
+                                    <label htmlFor="input_medication3" className="font-bold">Medicamento 3:</label>
+                                    <InputMedication3 value={medication3} onChange={e => setMedication3(e.target.value)} />
+                                </div>
 
-                    </div>
+                                <div className="flex flex-col items-center">
+                                    <label htmlFor="amount3" className="font-bold">Cantidad:</label>
+                                    <InputAmount3 value={amount3} onChange={e => setAmount3(e.target.value)} />
+                                </div>
+
+                            </div>
+                            <button
+                                type="button"
+                                onClick={closeMed3}
+                                className="top-0 right-0 text-red-500 hover:text-red-700 mb-5"
+                            >
+                                - Eliminar Medicamento 3
+                            </button>
+                        </>
+                    )}
                 </div>
+
 
                 <div className="flex justify-center gap-2">
                     <MyButton type="submit">Solicitar</MyButton>
