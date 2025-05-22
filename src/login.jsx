@@ -1,6 +1,7 @@
 import { createRoot } from 'react-dom/client'
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import CryptoJS from 'crypto-js';
 
 
 import './styles/App.css';
@@ -13,8 +14,20 @@ function Login() {
     const [error, setError] = useState(null)
     const navigate = useNavigate();
 
+    const SECRET_KEY = 'clave_secreta_de_32_bytes_123456'; // debe coincidir con el backend
+    const IV = 'vector_init_16byt'; // también debe coincidir
+
     const handleLogin = async (e) => {
         e.preventDefault();
+
+        const payload = JSON.stringify({ email, password });
+
+        // Encriptar con AES (CBC + PKCS7)
+        const encrypted = CryptoJS.AES.encrypt(payload, CryptoJS.enc.Utf8.parse(SECRET_KEY), {
+            iv: CryptoJS.enc.Utf8.parse(IV),
+            mode: CryptoJS.mode.CBC,
+            padding: CryptoJS.pad.Pkcs7
+        }).toString();
 
         try {
             const response = await fetch(`${API_BASE}/api/login`, {
@@ -24,18 +37,15 @@ function Login() {
                     'ngrok-skip-browser-warning': 'true'
                 },
                 credentials: 'include',
-                body: JSON.stringify({ email, password })
+                body: JSON.stringify({ payload: encrypted }) // <-- solo enviás esto
             });
 
             const data = await response.json();
 
             if (response.ok) {
-                localStorage.setItem('authToken', data.token); //guardo el token de autenticacion en localStorage
-
+                localStorage.setItem('authToken', data.token);
                 alert('Login exitoso');
                 navigate('/links');
-
-                console.log(data.user);
             } else {
                 alert(data.message || 'Credenciales incorrectas');
             }
@@ -44,7 +54,6 @@ function Login() {
             alert('Error al conectar con el servidor');
         }
     };
-
 
 
     //Vista que voy a mostrar en el index.html
@@ -81,7 +90,7 @@ function Login() {
 function InputUser({ value, onChange }) {
     return (
         <input
-            type="email"
+            type="text"
             id="email"
             name="email"
             value={value}
